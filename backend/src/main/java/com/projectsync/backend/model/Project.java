@@ -2,25 +2,36 @@ package com.projectsync.backend.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 
 @Entity
 @Table(name = "projects")
 public class Project {
+
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
+    @NotBlank(message = "Name is required")
+    @Size(max = 255, message = "Name must be less than 255 characters")
     private String name;
 
     @Column(length = 1000)
+    @Size(max = 1000, message = "Description must be less than 1000 characters")
     private String description;
 
     @Column(nullable = false)
+    @NotBlank(message = "Status is required")
     private String status;
 
     @Column(nullable = false)
+    @NotBlank(message = "Responsible is required")
     private String responsible;
 
     @Column(nullable = false, updatable = false)
