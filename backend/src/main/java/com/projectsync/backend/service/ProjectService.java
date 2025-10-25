@@ -35,6 +35,15 @@ public class ProjectService {
     public Project updateProject(Long id, Project updatedProject) {
         return projectRepository.findById(id).map(existing -> {
             validateProject(updatedProject);
+
+            // Regla de negocio: si el estado cambia a "Completed"
+            if ("Completed".equalsIgnoreCase(updatedProject.getStatus())) {
+                // Simulación: validamos que tenga descripción como si fuera una entrega
+                if (updatedProject.getDescription() == null || updatedProject.getDescription().trim().isEmpty()) {
+                    throw new RuntimeException("Cannot mark project as Completed without at least one delivery.");
+                }
+            }
+
             existing.setName(updatedProject.getName());
             existing.setDescription(updatedProject.getDescription());
             existing.setStatus(updatedProject.getStatus());
@@ -42,6 +51,7 @@ public class ProjectService {
             return projectRepository.save(existing);
         }).orElseThrow(() -> new RuntimeException("Project not found with id: " + id));
     }
+
 
     public void deleteProject(Long id) {
         if (!projectRepository.existsById(id)) {
