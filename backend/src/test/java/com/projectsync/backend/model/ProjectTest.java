@@ -15,7 +15,7 @@ class ProjectTest {
 
         assertNotNull(project.getCreatedAt(), "createdAt no debería ser null");
         assertNotNull(project.getUpdatedAt(), "updatedAt no debería ser null");
-        assertEquals(project.getCreatedAt(), project.getUpdatedAt(), "createdAt y updatedAt deberían ser iguales en creación");
+        assertEquals(project.getCreatedAt(), project.getUpdatedAt(), "createdAt and updatedAt should be equal on creation");
     }
 
     @Test
@@ -29,7 +29,7 @@ class ProjectTest {
         project.onUpdate();
 
         assertEquals(createdAt, project.getCreatedAt(), "createdAt no debería cambiar");
-        assertTrue(project.getUpdatedAt().isAfter(createdAt), "updatedAt debería ser posterior a createdAt");
+        assertTrue(project.getUpdatedAt().isAfter(createdAt), "updatedAt should be after createdAt");
     }
 
     @Test
