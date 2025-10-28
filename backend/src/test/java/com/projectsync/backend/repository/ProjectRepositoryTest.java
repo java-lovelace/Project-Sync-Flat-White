@@ -24,7 +24,7 @@ class ProjectRepositoryTest {
         Project saved = projectRepository.save(project);
 
         // Verificamos que se haya generado un ID automáticamente
-        assertNotNull(saved.getId(), "Id should autogenerate at save);
+        assertNotNull(saved.getId(), "Id should autogenerate at save");
     }
 
     @Test

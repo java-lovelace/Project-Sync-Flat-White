@@ -1,5 +1,6 @@
-vpackage com.projectsync.backend.service;
+package com.projectsync.backend.service;
 
+ import com.projectsync.backend.service.ProjectService;
  import com.projectsync.backend.model.Project;
  import com.projectsync.backend.repository.ProjectRepository;
  import org.junit.jupiter.api.AfterEach;

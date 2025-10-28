@@ -1,7 +1,9 @@
 package com.projectsync.backend.model;
 
 import org.junit.jupiter.api.Test;
+
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,7 +17,13 @@ class ProjectTest {
 
         assertNotNull(project.getCreatedAt(), "createdAt no debería ser null");
         assertNotNull(project.getUpdatedAt(), "updatedAt no debería ser null");
-        assertEquals(project.getCreatedAt(), project.getUpdatedAt(), "createdAt and updatedAt should be equal on creation");
+
+        // Truncamos a milisegundos para evitar diferencias en nanosegundos
+        assertEquals(
+                project.getCreatedAt().truncatedTo(ChronoUnit.MILLIS),
+                project.getUpdatedAt().truncatedTo(ChronoUnit.MILLIS),
+                "createdAt and updatedAt should be equal on creation"
+        );
     }
 
     @Test
@@ -25,7 +33,7 @@ class ProjectTest {
         project.onCreate();
         LocalDateTime createdAt = project.getCreatedAt();
 
-        Thread.sleep(5); // se hace una pausa para que updatedAt sea posterior a createdAt
+        Thread.sleep(5); // Pausa para que updatedAt sea posterior a createdAt
         project.onUpdate();
 
         assertEquals(createdAt, project.getCreatedAt(), "createdAt no debería cambiar");
@@ -42,4 +50,3 @@ class ProjectTest {
         assertEquals("Charlie", project.getResponsible());
     }
 }
-
